@@ -1,24 +1,5 @@
 🩻 Bone Fracture Detection Web Application
-<div align="center">
-https://img.shields.io/badge/Flask-2.3.3-000000?style=for-the-badge&logo=flask&logoColor=white
-https://img.shields.io/badge/YOLOv8-8.0.196-00FFFF?style=for-the-badge&logo=pytorch&logoColor=white
-https://img.shields.io/badge/OpenCV-4.8.1-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white
-https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white
-https://img.shields.io/badge/AI%2520Medical-Detection-FF6B6B?style=for-the-badge
 
-Advanced AI-powered fracture detection system for medical imaging analysis
-
-https://img.shields.io/badge/%F0%9F%A9%BA-Live_Demo-8A2BE2?style=for-the-badge&logo=heroku&logoColor=white
-https://img.shields.io/badge/%F0%9F%93%9A-Documentation-4A148C?style=for-the-badge&logo=readthedocs&logoColor=white
-https://img.shields.io/badge/%F0%9F%9A%80-Try_it_Now-00C851?style=for-the-badge&logo=rocket&logoColor=white
-
-</div>
-✨ Featured Preview
-<div align="center">
-🏥 Modern Medical Interface with Real-time Analysis
-Upload Interface	Results Dashboard
-https://via.placeholder.com/500x300/4a148c/ffffff?text=AI+Medical+Upload	https://via.placeholder.com/500x300/7b1fa2/ffffff?text=Fracture+Analysis
-</div>
 🎯 Key Features
 🔬 Advanced AI Detection
 YOLOv8-Powered: State-of-the-art object detection for fracture identification
