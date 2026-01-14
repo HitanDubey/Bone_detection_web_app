@@ -1,6 +1,37 @@
 🩻 Bone Fracture Detection Web Application
+<div align="center">
+https://img.shields.io/badge/Medical-AI--Powered-blueviolet
+https://img.shields.io/badge/Flask-2.3.3-000000?logo=flask
+https://img.shields.io/badge/YOLOv8-8.0.0-00C851?logo=pytorch
+https://img.shields.io/badge/Python-3.8+-3776AB?logo=python
+https://img.shields.io/badge/License-MIT-yellow
 
-🎯 Key Features
+Advanced AI-powered web application for detecting bone fractures from X-ray images with medical-grade insights
+
+https://img.shields.io/github/stars/HitanDubey/Bone_detection_web_app?style=social
+https://img.shields.io/github/forks/HitanDubey/Bone_detection_web_app?style=social
+
+</div>
+📋 Table of Contents
+✨ Features
+
+🛠️ Technology Stack
+
+🚀 Quick Start
+
+📁 Project Structure
+
+🏥 Usage Guide
+
+📊 Performance
+
+🔧 API Reference
+
+🤝 Contributing
+
+📄 License
+
+✨ Features
 🔬 Advanced AI Detection
 YOLOv8-Powered: State-of-the-art object detection for fracture identification
 
@@ -40,18 +71,15 @@ Layer	Technology	Purpose
 </div>
 🚀 Quick Start
 Prerequisites
-Ensure you have the following installed:
-
 bash
 # Check Python version
 python --version  # Should be 3.8+
 
 # Check pip
 pip --version
-📦 Installation Guide
+📦 Installation
 Method 1: One-Line Setup (Recommended)
 bash
-# Clone and setup in one command
 git clone https://github.com/HitanDubey/Bone_detection_web_app.git && cd Bone_detection_web_app && pip install -r requirements.txt
 Method 2: Step-by-Step
 Clone the Repository
@@ -123,55 +151,8 @@ bone_fracture_detector/
 │   └── result.html           # Analysis results
 │
 └── 📂 UPLOADS/               # User-uploaded images
-🔧 Configuration
-Environment Variables
-Create a .env file in the root directory:
-
-env
-# Flask Configuration
-FLASK_APP=app.py
-FLASK_ENV=development
-FLASK_DEBUG=True
-
-# Application Settings
-UPLOAD_FOLDER=Uploads/
-MAX_UPLOAD_SIZE=16MB  # in megabytes
-ALLOWED_EXTENSIONS=png,jpg,jpeg,dicom
-
-# Model Configuration
-MODEL_PATH=best_model.pt
-CONFIDENCE_THRESHOLD=0.5
-IOU_THRESHOLD=0.45
-Customizing Detection
-Modify app.py for specific needs:
-
-python
-# Change model parameters
-model = YOLO('best_model.pt')
-results = model.predict(
-    img,
-    conf=0.6,      # Confidence threshold
-    iou=0.5,       # Intersection over Union
-    imgsz=640,     # Image size
-    augment=True   # Test time augmentation
-)
-
-# Add new fracture types in data.json
-{
-  "New Fracture Type": {
-    "Description": "Medical description...",
-    "Symptoms": "Symptom 1. Symptom 2. Symptom 3."
-  }
-}
 🏥 Usage Guide
 Step 1: Upload X-ray Image
-<div align="center">
-
-
-
-
-
-</div>
 Enter Patient Information
 
 Full name for record keeping
@@ -213,39 +194,16 @@ Step 3: Take Action
 
 💾 Save Analysis: Store in patient history database
 
-🎨 UI/UX Features
-Interactive Elements
-css
-/* Example of animated medical UI */
-.skull-cursor {
-  animation: pulse 2s infinite;
-  transition: transform 0.3s ease;
-}
-
-.scan-line {
-  background: linear-gradient(90deg, transparent, #4a148c, transparent);
-  animation: scan 3s ease-in-out infinite;
-}
-
-.confidence-meter {
-  background: linear-gradient(90deg, #4a148c, #7b1fa2);
-  animation: fillMeter 2s ease-out forwards;
-}
-Responsive Design
-css
-/* Mobile-first responsive design */
-@media (max-width: 768px) {
-  .content-grid {
-    grid-template-columns: 1fr;
-    padding: 1rem;
-  }
-  
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-📊 Supported Fracture Types
+📊 Performance
 <div align="center">
+Metric	Value
+Processing Time	2.3 seconds
+Detection Accuracy	95.2%
+Model Size	14.5 MB
+Memory Usage	512 MB
+Concurrent Users	10+
+Uptime	99.8%
+Supported Fracture Types
 Fracture Type	Detection Accuracy	Common Location	Severity
 Radius Fracture	96%	Distal forearm	Medium-High
 Ulna Fracture	94%	Medial forearm	Medium
@@ -256,18 +214,8 @@ Shoulder Fracture	90%	Clavicle/Scapula	Medium-High
 Finger Fracture	95%	Phalanges	Low
 No Fracture	98%	N/A	Normal
 </div>
-🚀 Performance Metrics
-json
-{
-  "processing_time": "2.3 seconds",
-  "accuracy": "95.2%",
-  "confidence_threshold": "92%",
-  "model_size": "14.5 MB",
-  "memory_usage": "512 MB",
-  "concurrent_users": "10+",
-  "uptime": "99.8%"
-}
-🔧 API Endpoints
+🔧 API Reference
+Endpoints
 Endpoint	Method	Description	Parameters
 /	GET/POST	Home page & image upload	file, name
 /prediction/<class_name>/<filename>	GET	Display results	class_name, filename
@@ -293,122 +241,6 @@ response = requests.post("http://localhost:5000/api/analyze", json={
 results = response.json()
 print(f"Fracture detected: {results['fracture_type']}")
 print(f"Confidence: {results['confidence']}%")
-🐛 Troubleshooting
-Common Issues & Solutions
-Issue	Solution	Prevention
-Model not found	Ensure best_model.pt is in root directory	Check file permissions
-Import errors	Run pip install -r requirements.txt	Use virtual environment
-Port already in use	Change port: app.run(port=5001)	Check running processes
-Upload fails	Verify Uploads/ directory exists	Check disk space
-Slow processing	Reduce image size before upload	Use GPU if available
-Memory error	Reduce image dimensions	Increase system RAM
-Debug Mode
-bash
-# Enable verbose logging
-export FLASK_DEBUG=1
-python app.py
-
-# Check logs for errors
-tail -f logs/app.log
-📈 Deployment Options
-Option 1: Local Server (Development)
-bash
-# Development mode with auto-reload
-python app.py --debug --host 0.0.0.0 --port 5000
-Option 2: Docker Deployment
-dockerfile
-# Dockerfile
-FROM python:3.9-slim
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-COPY . .
-EXPOSE 5000
-CMD ["python", "app.py"]
-bash
-# Build and run
-docker build -t fracture-detector .
-docker run -p 5000:5000 fracture-detector
-Option 3: Cloud Deployment (Heroku)
-bash
-# Create Heroku app
-heroku create fracture-detector-app
-git push heroku main
-
-# Set environment variables
-heroku config:set FLASK_ENV=production
-heroku config:set MODEL_PATH=best_model.pt
-🔮 Future Roadmap
-🚀 Version 2.0 (Q4 2024)
-Multi-bone simultaneous fracture detection
-
-3D fracture visualization
-
-Cloud-based model training
-
-Mobile application (React Native)
-
-🧠 Version 3.0 (Q2 2025)
-CT/MRI scan compatibility
-
-Healing progress tracking
-
-Integration with hospital EMR systems
-
-Predictive recovery timeline
-
-🔬 Research Features
-Bone density analysis
-
-Osteoporosis risk assessment
-
-Automated report generation
-
-Telemedicine integration
-
-📚 Documentation
-Medical Database Structure
-json
-{
-  "Fracture Type": {
-    "Description": "Detailed medical explanation...",
-    "Symptoms": [
-      "Pain and swelling",
-      "Limited range of motion",
-      "Bruising and tenderness"
-    ],
-    "Treatment": {
-      "immediate": "Immobilization, pain management",
-      "short_term": "Physical therapy",
-      "long_term": "Follow-up X-rays"
-    },
-    "severity_level": "medium",
-    "recovery_time": "6-8 weeks"
-  }
-}
-Adding New Features
-Extend Detection Capabilities
-
-python
-# In app.py, extend the predict function
-def predict(path):
-    # Add new bone types
-    bone_types = {
-        0: "radius_fracture",
-        1: "ulna_fracture",
-        2: "humerus_fracture",
-        3: "new_fracture_type"  # Add here
-    }
-Customize UI Themes
-
-css
-/* In static/home.css */
-:root {
-    --medical-primary: #4a148c;
-    --medical-secondary: #7b1fa2;
-    --medical-accent: #ff4444;
-    --medical-success: #00C851;
-}
 🤝 Contributing
 We welcome contributions! Here's how you can help:
 
@@ -452,89 +284,10 @@ Update documentation accordingly
 Ensure backward compatibility
 
 📄 License
-text
-MIT License
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-Copyright (c) 2024 Vipul Dubey / Hitan Dubey
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-Medical Disclaimer
-⚠️ Important: This software is intended for educational and research purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of qualified health providers with any questions regarding medical conditions. Never disregard professional medical advice or delay in seeking it because of something you have read or seen in this application.
-
-👥 Team & Credits
-🧑‍💻 Core Developers
-Vipul Dubey - Lead Developer & AI Specialist
-
-Hitan Dubey - Full Stack & UI/UX Design
-
-🏥 Medical Advisors
-Dr. Medical Expert - Orthopedic Consultant
-
-Radiology Department - Image Analysis
-
-📚 Technologies Used
-Ultralytics YOLOv8 - Object detection framework
-
-Flask - Web application framework
-
-OpenCV - Computer vision library
-
-Font Awesome - Icon toolkit
-
-Medical Databases - Clinical reference data
-
-🙏 Acknowledgments
-Open-source medical imaging communities
-
-Research papers on fracture detection
-
-Beta testers and medical professionals
-
-Contributors and issue reporters
-
-📞 Support & Contact
-Getting Help
-GitHub Issues: Report Problems
-
-Email: [Your Contact Email]
-
-Documentation: Full Docs
-
-Community
-Join our Discord community
-
-Follow on Twitter for updates
-
-Star the repository to show support
-
-Share with medical institutions
-
-Professional Integration
-For hospitals, clinics, or research institutions interested in integration:
-
-Custom model training available
-
-HIPAA-compliant deployment options
-
-API access for existing systems
-
-White-label solutions
+⚠️ Medical Disclaimer
+Important: This software is intended for educational and research purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of qualified health providers with any questions regarding medical conditions. Never disregard professional medical advice or delay in seeking it because of something you have read or seen in this application.
 
 <div align="center">
 Made with ❤️ for Medical Innovation
@@ -543,16 +296,4 @@ https://api.star-history.com/svg?repos=HitanDubey/Bone_detection_web_app&type=Da
 
 If this project helps in your medical research or practice, please consider giving it a ⭐
 
-</div>
-🚨 Emergency Notice
-In case of medical emergency:
-
-DO NOT rely solely on this software
-
-Contact emergency services immediately
-
-Visit the nearest hospital or clinic
-
-Consult with licensed medical professionals
-
-Remember: This tool is an assistant, not a replacement for professional medical care.
+</div><style> :root { --medical-primary: #4a148c; --medical-secondary: #7b1fa2; --medical-accent: #ff4444; --medical-success: #00C851; --medical-warning: #ffbb33; --medical-info: #33b5e5; } body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 1200px; margin: 0 auto; padding: 20px; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); } h1, h2, h3, h4 { color: var(--medical-primary); border-bottom: 2px solid var(--medical-secondary); padding-bottom: 10px; margin-top: 30px; } h1 { text-align: center; font-size: 2.5em; background: linear-gradient(45deg, var(--medical-primary), var(--medical-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; border-bottom: 3px solid var(--medical-accent); } table { width: 100%; border-collapse: collapse; margin: 20px 0; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px; overflow: hidden; } th { background: linear-gradient(135deg, var(--medical-primary), var(--medical-secondary)); color: white; font-weight: 600; padding: 12px; text-align: left; } td { padding: 12px; border-bottom: 1px solid #e0e0e0; } tr:nth-child(even) { background-color: #f8f9fa; } tr:hover { background-color: #e3f2fd; transition: background-color 0.3s ease; } code { background-color: #f5f5f5; padding: 2px 6px; border-radius: 4px; font-family: 'Courier New', monospace; color: var(--medical-primary); } pre { background: linear-gradient(135deg, #2c3e50, #4a148c); color: white; padding: 15px; border-radius: 8px; overflow-x: auto; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); } a { color: var(--medical-secondary); text-decoration: none; transition: color 0.3s ease; } a:hover { color: var(--medical-primary); text-decoration: underline; } .badge-container { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 20px 0; } .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 30px 0; } .feature-card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease; } .feature-card:hover { transform: translateY(-5px); box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); } .feature-card h3 { color: var(--medical-secondary); border-bottom: none; margin-top: 0; } .warning-box { background: linear-gradient(135deg, #fff3cd, #ffeaa7); border-left: 4px solid var(--medical-warning); padding: 15px; margin: 20px 0; border-radius: 4px; } .success-box { background: linear-gradient(135deg, #d4edda, #c3e6cb); border-left: 4px solid var(--medical-success); padding: 15px; margin: 20px 0; border-radius: 4px; } .info-box { background: linear-gradient(135deg, #d1ecf1, #bee5eb); border-left: 4px solid var(--medical-info); padding: 15px; margin: 20px 0; border-radius: 4px; } .step-container { counter-reset: step-counter; } .step { position: relative; padding-left: 60px; margin: 20px 0; min-height: 50px; } .step::before { counter-increment: step-counter; content: counter(step-counter); position: absolute; left: 0; top: 0; width: 40px; height: 40px; background: linear-gradient(135deg, var(--medical-primary), var(--medical-secondary)); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2em; } @media (max-width: 768px) { body { padding: 10px; } h1 { font-size: 2em; } table { display: block; overflow-x: auto; } .feature-grid { grid-template-columns: 1fr; } pre { font-size: 0.9em; } } .tech-stack-table { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); } .tech-stack-table th:first-child { width: 80px; } .license-section { background: white; padding: 20px; border-radius: 10px; margin: 30px 0; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); } .contributing-section { background: linear-gradient(135deg, #f8f9fa, #e9ecef); padding: 25px; border-radius: 10px; margin: 30px 0; } .footer { text-align: center; margin-top: 50px; padding: 20px; border-top: 2px solid var(--medical-primary); color: #666; } .pulse { animation: pulse 2s infinite; } @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } } .scan-line { height: 2px; background: linear-gradient(90deg, transparent, var(--medical-accent), transparent); animation: scan 3s ease-in-out infinite; margin: 20px 0; } @keyframes scan { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } } </style>
