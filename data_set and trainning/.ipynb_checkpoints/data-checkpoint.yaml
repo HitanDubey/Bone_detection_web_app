@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 1
+names: ['fracture']
+
+roboflow:
+  workspace: hitan
+  project: erts2-6xqz0
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/hitan/erts2-6xqz0/dataset/1

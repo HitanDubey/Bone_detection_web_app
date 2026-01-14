@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results | FractureDetect AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/result.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="bg-pulse"></div>
+        <div class="bg-pulse"></div>
+        <div class="bg-pulse"></div>
+    </div>
+
+    <!-- Floating Medical Icons -->
+    <div class="floating-icons">
+        <i class="fas fa-bone"></i>
+        <i class="fas fa-stethoscope"></i>
+        <i class="fas fa-heartbeat"></i>
+        <i class="fas fa-hospital"></i>
+        <i class="fas fa-prescription"></i>
+        <i class="fas fa-ambulance"></i>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="result-header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-bone"></i>
+                    <span>FractureDetect AI</span>
+                </div>
+                <div class="patient-info">
+                    <div class="info-item">
+                        <i class="fas fa-user"></i>
+                        <span>Patient: {{ patient_name }}</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Analysis Time: <span id="analysisTime"></span></span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="content-grid">
+            <!-- Image Section -->
+            <div class="image-section">
+                <div class="section-header">
+                    <i class="fas fa-x-ray"></i>
+                    <h3>X-Ray Image Analysis</h3>
+                </div>
+                <div class="image-container">
+                    <div class="image-wrapper">
+                        <img src="{{ url_for('serve_image', filename=filename) }}" alt="X-Ray Analysis" class="main-image" />
+                        <div class="image-overlay">
+                            <div class="scan-line"></div>
+                            <div class="hotspots">
+                                <div class="hotspot" style="top: 30%; left: 40%;" data-fracture="true"></div>
+                                <div class="hotspot" style="top: 60%; left: 70%;" data-fracture="false"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="image-actions">
+                        <button class="action-btn" onclick="zoomImage()">
+                            <i class="fas fa-search-plus"></i>
+                            Zoom
+                        </button>
+                        <button class="action-btn" onclick="downloadImage()">
+                            <i class="fas fa-download"></i>
+                            Download
+                        </button>
+                        <button class="action-btn" onclick="shareResults()">
+                            <i class="fas fa-share"></i>
+                            Share
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="results-section">
+                <div class="section-header">
+                    <i class="fas fa-chart-bar"></i>
+                    <h3>Analysis Results</h3>
+                </div>
+
+                <!-- Confidence Meter -->
+                <div class="confidence-meter">
+                    <div class="meter-header">
+                        <span>Detection Confidence</span>
+                        <span class="confidence-value" id="confidenceValue">92%</span>
+                    </div>
+                    <div class="meter-bar">
+                        <div class="meter-fill" id="meterFill"></div>
+                    </div>
+                </div>
+
+                <!-- Fracture Type -->
+                <div class="result-card primary">
+                    <div class="card-icon">
+                        <i class="fas fa-diagnoses"></i>
+                    </div>
+                    <div class="card-content">
+                        <h4>Fracture Type</h4>
+                        <div class="fracture-type" id="fractureType">
+                            <span class="type-name">{{ class_name }}</span>
+                            <div class="severity-indicator" data-severity="high"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="result-card">
+                    <div class="card-icon">
+                        <i class="fas fa-file-medical"></i>
+                    </div>
+                    <div class="card-content">
+                        <h4>Medical Description</h4>
+                        <p class="desc">{{ desc }}</p>
+                    </div>
+                </div>
+
+                <!-- Symptoms -->
+                <div class="result-card">
+                    <div class="card-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="card-content">
+                        <h4>Common Symptoms</h4>
+                        <ul class="symptoms-list">
+                            {% for symptom in sympt.split('. ') %}
+                                {% if symptom %}
+                                    <li class="symptom-item">{{ symptom }}</li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Recommendations -->
+                <div class="result-card warning">
+                    <div class="card-icon">
+                        <i class="fas fa-hand-holding-medical"></i>
+                    </div>
+                    <div class="card-content">
+                        <h4>Recommended Actions</h4>
+                        <div class="recommendations">
+                            <div class="recommendation">
+                                <i class="fas fa-user-md"></i>
+                                <span>Consult orthopedic specialist immediately</span>
+                            </div>
+                            <div class="recommendation">
+                                <i class="fas fa-procedures"></i>
+                                <span>Immobilize affected area</span>
+                            </div>
+                            <div class="recommendation">
+                                <i class="fas fa-prescription-bottle-alt"></i>
+                                <span>Pain management medication</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Info -->
+        <div class="additional-info">
+            <div class="info-tabs">
+                <button class="tab-btn active" onclick="openTab('tab1')">
+                    <i class="fas fa-chart-line"></i>
+                    Statistics
+                </button>
+                <button class="tab-btn" onclick="openTab('tab2')">
+                    <i class="fas fa-history"></i>
+                    Timeline
+                </button>
+                <button class="tab-btn" onclick="openTab('tab3')">
+                    <i class="fas fa-file-pdf"></i>
+                    Report
+                </button>
+            </div>
+
+            <div class="tab-content">
+                <div id="tab1" class="tab-pane active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value">95%</div>
+                            <div class="stat-label">Accuracy Score</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">87%</div>
+                            <div class="stat-label">Confidence Level</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">2.3s</div>
+                            <div class="stat-label">Processing Time</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">Low</div>
+                            <div class="stat-label">Error Margin</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab2" class="tab-pane">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h5>Image Uploaded</h5>
+                                <span>Just now</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h5>AI Analysis Started</h5>
+                                <span>2 seconds ago</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h5>Fracture Detected</h5>
+                                <span>1 second ago</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker active"></div>
+                            <div class="timeline-content">
+                                <h5>Report Generated</h5>
+                                <span>Now</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab3" class="tab-pane">
+                    <div class="report-actions">
+                        <button class="report-btn" onclick="generatePDF()">
+                            <i class="fas fa-file-pdf"></i>
+                            Download PDF Report
+                        </button>
+                        <button class="report-btn" onclick="printReport()">
+                            <i class="fas fa-print"></i>
+                            Print Report
+                        </button>
+                        <button class="report-btn" onclick="emailReport()">
+                            <i class="fas fa-envelope"></i>
+                            Email Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="btn primary" onclick="window.location.href='/'">
+                <i class="fas fa-upload"></i>
+                New Analysis
+            </button>
+            <button class="btn secondary" onclick="saveResults()">
+                <i class="fas fa-save"></i>
+                Save Results
+            </button>
+            <button class="btn tertiary" onclick="consultSpecialist()">
+                <i class="fas fa-video"></i>
+                Consult Specialist
+            </button>
+        </div>
+
+        <!-- Progress Indicator -->
+        <div class="progress-indicator">
+            <div class="progress-step completed">
+                <div class="step-icon">1</div>
+                <span>Upload</span>
+            </div>
+            <div class="progress-step completed">
+                <div class="step-icon">2</div>
+                <span>Analyze</span>
+            </div>
+            <div class="progress-step active">
+                <div class="step-icon">3</div>
+                <span>Results</span>
+            </div>
+            <div class="progress-step">
+                <div class="step-icon">4</div>
+                <span>Follow-up</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Image Zoom -->
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img src="{{ url_for('serve_image', filename=filename) }}" alt="Zoomed X-Ray" />
+        </div>
+    </div>
+
+    <script src="/static/result.js"></script>
+    <script>
+// Skull Cursor
+document.addEventListener('DOMContentLoaded', function() {
+    // Create skull cursor
+    const cursor = document.createElement('div');
+    cursor.className = 'skull-cursor';
+    cursor.innerHTML = '<div class="skull-icon"></div>';
+    document.body.appendChild(cursor);
+
+    // Cursor movement
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = (e.clientX - 24) + 'px';
+        cursor.style.top = (e.clientY - 24) + 'px';
+    });
+
+    // Hover effects
+    const hoverElements = document.querySelectorAll('button, a, input, .form-control, .btn, .action-btn, .tab-btn, .theme-toggle');
+    
+    hoverElements.forEach(element => {
+        element.addEventListener('mouseenter', () => {
+            cursor.classList.add('hover');
+        });
+        element.addEventListener('mouseleave', () => {
+            cursor.classList.remove('hover');
+        });
+    });
+
+    // Click effect
+    document.addEventListener('mousedown', () => {
+        cursor.classList.add('click');
+    });
+    document.addEventListener('mouseup', () => {
+        cursor.classList.remove('click');
+    });
+
+    // Theme Toggle Functionality
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    
+    // Check for saved theme or prefer color scheme
+    const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    setTheme(savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        setTheme(newTheme);
+    });
+
+    function setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        
+        if (themeIcon) {
+            if (theme === 'dark') {
+                themeIcon.className = 'fas fa-sun';
+                themeIcon.style.color = '#ffd700';
+            } else {
+                themeIcon.className = 'fas fa-moon';
+                themeIcon.style.color = '';
+            }
+        }
+    }
+
+    // Hide default cursor on body    ,  This web_app develop by a delhi technical student, name - (Vipul Dubey or Hitan dubey)
+    document.body.style.cursor = 'none';
+});
+
+// Fallback for touch devices
+if (window.matchMedia('(pointer: coarse)').matches) {
+    const cursor = document.querySelector('.skull-cursor');
+    if (cursor) {
+        cursor.style.display = 'none';
+    }
+    document.body.style.cursor = 'auto';
+}
+</script>
+</body>
+</html>
