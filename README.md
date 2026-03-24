@@ -5,7 +5,8 @@
 [![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/)
 
 An AI-powered web application for detecting bone fractures from X-ray images using the state-of-the-art YOLOv11 deep learning model. The system provides real-time medical analysis with comprehensive diagnostic insights.
-
+## Running Video 
+<video controls src="output_progressive_8b414d60-cec8-4e98-a5e5-df156ea29840.mp4" title="Title"></video>
 ## 📋 Table of Contents
 
 - [🚀 Key Features](#-key-features)
