@@ -6,7 +6,7 @@
 
 An AI-powered web application for detecting bone fractures from X-ray images using the state-of-the-art YOLOv11 deep learning model. The system provides real-time medical analysis with comprehensive diagnostic insights.
 ## Running Video 
-## Running Video
+## Running Video / Click on the image for downloading raw video to watch
 
 [![Demo of the Bone Fracture Detection Web Application](Video_demo.png)](https://github.com/HitanDubey/Bone_detection_web_app/blob/main/Running_Video.mp4)
 
